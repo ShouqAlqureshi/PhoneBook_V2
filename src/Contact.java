@@ -1,8 +1,8 @@
 public class Contact implements Comparable<Contact> {
 
-    private String Name, Phone_Number, Email_Address, Birthday, Address;
+    private String Type,Name, Phone_Number, Email_Address, Birthday, Address;
 
-    String note,Type;
+    String note;
 
 //    EventLinkedList scheduledEvents = new EventLinkedList(); waiting for design
 
@@ -50,6 +50,7 @@ public class Contact implements Comparable<Contact> {
     public String getEmail_Address() {
         return Email_Address;
     }
+
     public String getBirthday() {
         return Birthday;
     }
@@ -78,6 +79,6 @@ public class Contact implements Comparable<Contact> {
     }
 
     public String toString() {
-        return Type+ "name: " + getName() + "\tPhone Number:" + getPhone_Number() + "\tAddress: " + getAddress() + "\nEmail_Address: " + getEmail_Address() + "\tBirthday: " + getBirthday() + "\n note: " + note + "";
+        return getClass().getName() + "name: " + getName() + "\tPhone Number:" + getPhone_Number() + "\tAddress: " + getAddress() + "\nEmail_Address: " + getEmail_Address() + "\tBirthday: " + getBirthday() + "\n note: " + note + "";
     }
 }//class ending
