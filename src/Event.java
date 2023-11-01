@@ -1,6 +1,6 @@
 public class Event  {
 
-    String title;
+    String title,Type;
 
     String date;
 
@@ -62,7 +62,7 @@ public class Event  {
     }
     @Override
     public String toString() {
-        return "Event{" + "title=" + title +", contact name="+contact.getName()+ ", date=" + date + ", time=" + time + ", location=" + location + '}';
+        return Type+"{" + "title=" + title +", contact name="+contact.getName()+ ", date=" + date + ", time=" + time + ", location=" + location + '}';
     }
 
     public int comparing(Event event) {
