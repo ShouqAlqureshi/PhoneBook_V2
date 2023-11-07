@@ -65,7 +65,7 @@ public class ContactBST {
             current = q;
             return false;
     }
-    public boolean insert(String k, Contact val) {
+    public boolean insert(String k, Contact val) {//not tested
             BSTNode<Contact>  p , q = current;
 
             if(findKey(k)) {
