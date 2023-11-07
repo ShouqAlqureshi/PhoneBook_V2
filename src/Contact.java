@@ -41,7 +41,7 @@ public class Contact implements Comparable<Contact> {
 
     public String getName() {
         return Name;
-    }
+    }//getName
 
     public String getPhone_Number() {
         return Phone_Number;
@@ -57,20 +57,20 @@ public class Contact implements Comparable<Contact> {
 
     @Override
     public int compareTo(Contact contact) {
-        if (this.Name.toUpperCase().charAt(0) > contact.getName().toUpperCase().charAt(0))
+        if (this.Name.toUpperCase().charAt(0) > contact.getPhone_Number().toUpperCase().charAt(0))
             return 1;
-        else if (this.Name.toUpperCase().charAt(0) == contact.getName().toUpperCase().charAt(0)) {
+        else if (this.Name.toUpperCase().charAt(0) == contact.getPhone_Number().toUpperCase().charAt(0)) {
             int limit;
-            if (!this.Name.equalsIgnoreCase(contact.getName())) {
-                limit = Math.min(this.Name.length(), contact.getName().length());
+            if (!this.Name.equalsIgnoreCase(contact.getPhone_Number())) {
+                limit = Math.min(this.Name.length(), contact.getPhone_Number().length());
                 for (int i = 1; i < limit; i++) {
-                    if (this.Name.toUpperCase().charAt(i) > contact.getName().toUpperCase().charAt(i)) {
+                    if (this.Name.toUpperCase().charAt(i) > contact.getPhone_Number().toUpperCase().charAt(i)) {
                         return 1;
-                    } else if (this.Name.toUpperCase().charAt(i) < contact.getName().toUpperCase().charAt(i)) {
+                    } else if (this.Name.toUpperCase().charAt(i) < contact.getPhone_Number().toUpperCase().charAt(i)) {
                         return -1;
                     }
                 }
-                if (this.Name.length() != contact.getName().length())
+                if (this.Name.length() != contact.getPhone_Number().length())
                     return 2;
             }
             return 0;

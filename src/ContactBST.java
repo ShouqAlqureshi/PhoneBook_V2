@@ -1,5 +1,3 @@
-package phoneBookP2;
-
 public class ContactBST {
 	  
     BSTNode <Contact> root, current;
@@ -10,7 +8,7 @@ public class ContactBST {
 
 		public void searchByName(String name) { //not tested yet
 		BSTNode q = current;
-		if (!findkey(name)) {
+		if (!findKey(name)) {
 			System.out.println("The contact is not found");
 			current=q; //since findKey changes the current
 			return;
@@ -47,7 +45,7 @@ public class ContactBST {
             return current.data;
     }
 
-    public boolean findkey(String tkey) {
+    public boolean findKey(String keyToFind) {
             BSTNode<Contact>  p = root , q = root;
 
             if(empty())
@@ -55,11 +53,11 @@ public class ContactBST {
 
             while(p != null) {
                     q = p;
-                    if(p.key.compareTo(tkey) == 0) {
+                    if(p.key.compareTo(keyToFind) == 0) {//p.data.compareTo(keyToFind);modifey para to string
                             current = p;
                             return true;
                     }
-                    else if(tkey.compareTo(p.key) < 0)
+                    else if(keyToFind.compareTo(p.key) < 0)
                             p = p.left;
                     else
                             p = p.right;
@@ -70,7 +68,7 @@ public class ContactBST {
     public boolean insert(String k, Contact val) {
             BSTNode<Contact>  p , q = current;
 
-            if(findkey(k)) {
+            if(findKey(k)) {
                     current = q;  // findkey() modified current
                     return false; // key already in the BST
             }
@@ -90,4 +88,49 @@ public class ContactBST {
                     return true;
             }
     }
-}
+    public void add(Contact contactToAdd ){
+        BSTNode<Contact> hold = current;
+        BSTNode<Contact> nodeToAdd = new BSTNode<Contact> (contactToAdd.getName(),contactToAdd );
+        if (empty()) {
+            root = current = nodeToAdd;
+            System.out.println(contactToAdd.toString() + "\n##has been added to the phonebook successfully ;)");
+            return;
+        }
+        if (isUniqueContact(contactToAdd)){
+            if (contactToAdd.compareTo(current.data) < 0)
+                current.left = nodeToAdd;
+            else
+                current.right = nodeToAdd;
+            current = nodeToAdd;
+            System.out.println("##has been added to the phonebook successfully ;)");
+            return;
+        }
+        current = hold;
+        System.out.println(contactToAdd.toString() + "\n is already added to the phonebook :) ");
+    }
+    public boolean isUniqueContact(Contact contact){//preorder
+        BSTNode<Contact> previous = current;//hold value
+        if (findKey(contact.getName())){
+            current = previous;  // findkey() modified current
+            if(isUniquePhoneNumber(contact,root))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean isUniquePhoneNumber(Contact contact,BSTNode<Contact> pointer){
+        if (pointer == null)
+            return false;
+
+        // First recur on left subtree
+        isUniquePhoneNumber(contact,pointer.left);
+
+        // Now deal with the node
+        if(contact.compareTo(pointer.data) == 0)
+            return true;
+        // Then recur on right subtree
+        isUniquePhoneNumber(contact,pointer.right);
+
+        return false;
+    }
+}//class

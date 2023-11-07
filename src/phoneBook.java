@@ -1,5 +1,3 @@
-package phoneBookP2;
-
 public class phoneBook {
 	
 	ContactBST contactList= new ContactBST();

@@ -1,5 +1,3 @@
-package phoneBookP2;
-
 class BSTNode<Contact> {
     
     public String key;
