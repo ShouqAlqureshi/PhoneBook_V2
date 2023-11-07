@@ -111,7 +111,7 @@ public class ContactBST {
     public boolean isUniqueContact(Contact contact){//preorder
         BSTNode<Contact> previous = current;//hold value
         if (findKey(contact.getName())){
-            current = previous;  // findkey() modified current
+            current = previous;  // findKey() modified current
             if(isUniquePhoneNumber(contact,root))
                 return true;
         }
