@@ -8,6 +8,33 @@ public class ContactBST {
             root = current = null;
     }
 
+		public void searchByName(String name) { //not tested yet
+		BSTNode q = current;
+		if (!findkey(name)) {
+			System.out.println("The contact is not found");
+			current=q; //since findKey changes the current
+			return;
+		}
+		else {
+			System.out.println("Contact found!");
+			System.out.println(current.data.toString());
+		}
+			
+	}
+	
+	public void searchByPhoneNumber(String phoneNumber , BSTNode node) { //not tested yet
+		if (this.empty())
+			return;
+		searchByPhoneNumber(phoneNumber , node.left);
+		if (((Contact)node.data).getPhone_Number().equals(phoneNumber)) {
+			System.out.println("contact found!");
+			System.out.println(((Contact)node.data).toString());
+		}
+		searchByPhoneNumber(phoneNumber , node.right);
+	}
+
+	
+
     public boolean empty() {
             return root == null;
     }
