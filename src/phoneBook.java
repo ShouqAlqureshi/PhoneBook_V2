@@ -29,7 +29,6 @@ public class phoneBook {
 //			temp=temp.next;
 		}
 
-
 	public void printEventSharingE_title(String EventTitle) {
 /*		Node<Event> tmpEvents = this.EventList.head;
 		while(tmpEvents != null) {
