@@ -1,6 +1,6 @@
 public class ContactBST {
 	  
-    BSTNode <Contact> root, current;
+    BSTNode  root, current;
 
     public ContactBST() {
             root = current = null;
@@ -19,7 +19,18 @@ public class ContactBST {
 		}
 			
 	}
-	
+    public BSTNode findByName(String name) { //not tested yet
+        BSTNode q = current;
+        if (!findKey(name)) {
+            System.out.println("The contact is not found");
+            current=q; //since findKey changes the current
+            return null;
+        }
+        else {
+            return current;
+        }
+
+    }
 	public void searchByPhoneNumber(String phoneNumber , BSTNode node) { //not tested yet
 		if (this.empty())
 			return;
@@ -46,7 +57,7 @@ public class ContactBST {
     }
 
     public boolean findKey(String keyToFind) {
-            BSTNode<Contact>  p = root , q = root;
+            BSTNode p = root , q = root;
 
             if(empty())
                     return false;
@@ -66,14 +77,14 @@ public class ContactBST {
             return false;
     }
     public boolean insert(String k, Contact val) {//not tested
-            BSTNode<Contact>  p , q = current;
+            BSTNode  p , q = current;
 
             if(findKey(k)) {
                     current = q;  // findkey() modified current
                     return false; // key already in the BST
             }
 
-            p = new BSTNode<Contact> (k, val);
+            p = new BSTNode (k, val);
             if (empty()) {
                     root = current = p;
                     return true;
@@ -89,8 +100,8 @@ public class ContactBST {
             }
     }
     public void add(Contact contactToAdd ){
-        BSTNode<Contact> hold = current;
-        BSTNode<Contact> nodeToAdd = new BSTNode<Contact> (contactToAdd.getName(),contactToAdd );
+        BSTNode hold = current;
+        BSTNode nodeToAdd = new BSTNode (contactToAdd.getName(),contactToAdd );
         if (empty()) {
             root = current = nodeToAdd;
             System.out.println(contactToAdd.toString() + "\n##has been added to the phonebook successfully ;)");
@@ -109,7 +120,7 @@ public class ContactBST {
         System.out.println(contactToAdd.toString() + "\n is already added to the phonebook :) ");
     }
     public boolean isUniqueContact(Contact contact){//preorder
-        BSTNode<Contact> previous = current;//hold value
+        BSTNode previous = current;//hold value
         if (findKey(contact.getName())){
             current = previous;  // findKey() modified current
             if(isUniquePhoneNumber(contact,root))
@@ -118,7 +129,7 @@ public class ContactBST {
         return false;
     }
 
-    public boolean isUniquePhoneNumber(Contact contact,BSTNode<Contact> pointer){
+    public boolean isUniquePhoneNumber(Contact contact,BSTNode pointer){
         if (pointer == null)
             return false;
 
