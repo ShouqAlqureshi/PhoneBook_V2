@@ -1,8 +1,8 @@
-class BSTNode<Contact> {
+class BSTNode {
     
     public String key;
         public Contact data;
-        public BSTNode<Contact> right, left;
+        public BSTNode right, left;
 
 
     public BSTNode() {
@@ -15,7 +15,7 @@ class BSTNode<Contact> {
             right = left = null;
         }
 
-            public BSTNode(String key, Contact data, BSTNode<Contact> l, BSTNode<Contact> r){
+            public BSTNode(String key, Contact data, BSTNode l, BSTNode r){
             this.key = key  ;
             this.data = data;
             left = l;

@@ -2,6 +2,7 @@ import java.util.Scanner;
 public class phoneBook {
 	
 	ContactBST ContactTree= new ContactBST();
+	EventLinkedList EventList = new EventLinkedList();
 	
 	public void scheduleEORApp() {
 		
@@ -19,21 +20,33 @@ public class phoneBook {
 			System.out.println(((Contact)node.data).toString());
 		printContact_firstName(fName , node.right);
 	}
-	
-	public void printEvent_title(String title) {
-		
-	}
-	
-	public void printEvent_cName(String name) {
-		
+
+	public void printEventByContactName(String contactName) {
+		Contact contactToFind = ContactTree.findByName(contactName).data;
+//		Node<Event> temp = contactToFind.scheduledEvents.head;
+//		while (temp != null) {
+//			System.out.println(temp.data.toString());
+//			temp=temp.next;
+		}
+
+
+	public void printEventSharingE_title(String EventTitle) {
+/*		Node<Event> tmpEvents = this.EventList.head;
+		while(tmpEvents != null) {
+			if (tmpEvents.data.title.equalsIgnoreCase(EventTitle))
+				System.out.println(tmpEvents.data.toString());
+			tmpEvents=tmpEvents.next;
+		}
+
+	*/
 	}
 	
 	public void printE_alphabetically(BSTNode node) { //not tested yet
 		if (node == null)
 			return;
 		printE_alphabetically(node.left);
-		System.out.println("contact found!");
-		System.out.println(((Contact)node.data).toString());
+		System.out.println("Event found!");
+		System.out.println((node.data).toString());
 		printE_alphabetically( node.right);
 	}
 
@@ -95,7 +108,7 @@ public class phoneBook {
 					break;
 				case 3:
 					System.out.println("Enter the contact's name:");
-//					Contact contactToDelete = this.ContactTree.searchByName( input.nextLine() );
+					Contact contactToDelete = this.ContactTree.findByName( input.nextLine() ).data;// hint: findKey then delete
 //					this.deleteEvents(contactToDelete.scheduledEvents);
 //					this.ContactTree.Delete(contactToDelete);
 					System.out.println("Contact has been deleted successfully :)");
@@ -129,7 +142,7 @@ public class phoneBook {
 					System.out.println("Contacts found!");
 					break;
 				case 7:
-					printE_alphabetically(ContactTree.root);
+//					printE_alphabetically(EventLinkedList.head);
 					break;
 			}
 		}while (action != 8);
