@@ -41,14 +41,13 @@ public class phoneBook {
 	*/
 	}
 	
-	public void printE_alphabetically(BSTNode node) { //not tested yet
-		if (node == null)
-			return;
-		printE_alphabetically(node.left);
-		System.out.println("Event found!");
-		System.out.println((node.data).toString());
-		printE_alphabetically( node.right);
-	}
+    public void printEventsAlphabetically() {  // not tested yet
+        Node current = EventList.head; 
+        while (current != null) { 
+            System.out.println(current.data.toString()); 
+            current = current.next; 
+        }
+    }
 
 	public void API() {
 		int action;
