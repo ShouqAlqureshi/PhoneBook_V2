@@ -1,1 +1,1 @@
-# PhoneBook_V2
+this project is  a phonebook application that stores contact information using a Binary Search Tree data structure. The application will allow users to add, search, and delete contacts from the phonebook.also offers an advanced search functionality that allows users to search for contacts based on name in logarithmic time. Additionally, users will be able to schedule events and appointments with contacts.
