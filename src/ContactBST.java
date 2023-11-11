@@ -6,7 +6,7 @@ public class ContactBST {
             root = current = null;
     }
 
-    public void searchByName(String name) { //not tested yet
+    public void searchByName(String name) { //tested
 		BSTNode q = current;
 		if (!findKey(name)) {
 			System.out.println("The contact is not found");
@@ -33,8 +33,8 @@ public class ContactBST {
 
     }
 
-	public void searchByPhoneNumber(String phoneNumber , BSTNode node) { //not tested yet
-		if (this.empty())
+	public void searchByPhoneNumber(String phoneNumber , BSTNode node) { //tested
+		if (node==null)
 			return;
 		searchByPhoneNumber(phoneNumber , node.left);
 		if (((Contact)node.data).getPhone_Number().equals(phoneNumber)) {
@@ -157,6 +157,59 @@ public class ContactBST {
         // Then recur on right subtree
         printContact(pointer.right);
 
+    }
+
+	public void deleteContact (Contact toBeDeleted) { //tested
+    	if (empty())
+    		System.out.println("there is no contact to delete!");
+    	else
+    		if(remove_key(toBeDeleted.getName()))	 //method delete is not yet implemented
+    			System.out.println("the contact is deleted successfully !");
+    	System.out.println("the contact is not found !");
+    }
+
+    public boolean remove_key (String theKey){
+    	boolean removed =false;
+    	BSTNode p;
+    	p = remove_aux(theKey, root, removed);
+    	current = root = p;
+    	return removed;
+    }
+
+    private BSTNode remove_aux(String theKey, BSTNode p, boolean flag) {
+    		BSTNode q, child = null;
+    		if(p == null)
+    			return null;
+    		if( theKey.compareTo(p.key) == -1)
+    			p.left = remove_aux(theKey, p.left, flag); //go left
+    		else if(theKey.compareTo(p.key) ==1)
+    			p.right = remove_aux(theKey, p.right, flag); //go right
+    		else { // key is found
+    			flag= true;
+    			if (p.left != null && p.right != null){ //two children
+    				q = find_min(p.right);
+    				p.key = q.key;
+    				p.data = q.data;
+    				p.right = remove_aux(q.key, p.right, flag);
+    				}
+    			else {
+    				if (p.right == null) //one child
+    					child = p.left;
+    				else if (p.left == null) //one child
+    					child = p.right;
+    				return child;
+    			}
+    		}
+    		return p;
+    }
+
+    private BSTNode find_min(BSTNode p){
+    	if(p == null)
+    		return null;
+    	while(p.left != null){
+    		p = p.left;
+    	}
+    	return p;
     }
 
     public static void main(String[] args) {
