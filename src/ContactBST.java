@@ -112,13 +112,15 @@ public class ContactBST {
             return false;
 
         // First recur on left subtree
-        findPhoneNumber(contact,pointer.left);
+        if (findPhoneNumber(contact,pointer.left))
+            return true;
 
         // Now deal with the node
         if(contact.compareTo(pointer.data) == 0)
             return true;
         // Then recur on right subtree
-        findPhoneNumber(contact,pointer.right);
+        if(findPhoneNumber(contact,pointer.right))
+            return true;
 
         return false;
     }
