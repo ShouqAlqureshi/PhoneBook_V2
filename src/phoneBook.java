@@ -4,9 +4,67 @@ public class phoneBook {
 	ContactBST ContactTree= new ContactBST();
 	EventLinkedList EventList = new EventLinkedList();
 	
-	public void scheduleEORApp() {
-		
-	}
+	public boolean scheduleEORApp() {
+        Scanner input = new Scanner(System.in) ;
+
+        String eventDate, eventTime;
+        Contact c = new Contact();
+        Event e = new Event();
+
+        System.out.print("Enter event title: ");
+        String Etitle = input.nextLine();
+
+        System.out.print("Enter contact name: ");
+        String CName = input.nextLine();
+
+        if (ContactTree.findKey(CName))
+        {
+        	c= ContactTree.current.data;
+            System.out.print("Enter event date and time MM/DD/YYYY HH:MM");
+            String eventTandD= input.nextLine();
+            String[] timeAndDate = eventTandD.split(" ");
+            eventDate= timeAndDate[0];
+            eventTime= timeAndDate[1];
+
+            if( conflict (c,eventTime,eventDate)){
+                System.out.println("Date and time are not available");
+                return false;
+            }
+            
+            else {
+                System.out.print("Enter event location: ");
+                String Elocation = input.nextLine();
+
+                System.out.print("Enter event Type: (E for Event, A for Appoinment) ");
+                char t = input.next().charAt(0);
+                if (t == 'E' || t =='e')
+                    e.Type = "Event";
+                else {
+                	if (t == 'A' || t =='a')
+                		e.Type = "Appoinment";
+                }
+
+                Event EventToBeSchedule = new Event( Etitle ,eventDate ,eventTime , Elocation , c ) ;
+                EventList.insertToSortedList (EventToBeSchedule );
+                c.scheduledEvents.insertToSortedList(EventToBeSchedule);
+                return true;
+            }
+            }
+		return false;
+           
+
+        }
+
+            public boolean conflict (Contact c , String eventTime , String eventDate){
+
+            Node<Event> tmp = EventList.head;
+            while (tmp != null) {
+                if (tmp.data.getDate().equals(eventDate) && tmp.data.getTime().equals(eventTime))
+                    return true;
+                tmp=tmp.next;
+            }
+            return false;
+        }
 	
 	public void printContact_firstName(String fName , BSTNode node) { //not tested yet
 		if (node==null)
