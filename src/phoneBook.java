@@ -8,7 +8,7 @@ public class phoneBook {
 		
 	}
 	
-	public void printContact_firstName(String fName , BSTNode node) { //not tested yet
+	public void printContact_firstName(String fName , BSTNode node) { //tested
 		if (node==null)
 			return;
 		printContact_firstName(fName , node.left);
@@ -40,7 +40,41 @@ public class phoneBook {
 	*/
 	}
 	
-    public void printEventsAlphabetically() {  // not tested yet
+    //delete all events of specific contact from the general events linked list
+    public void deleteEvents(EventLinkedList contactEventList) {
+    	Node<Event> nodeContactEvents = contactEventList.head;
+    	Node<Event> nodeAllEvents;
+    	while (nodeContactEvents != null) {
+			nodeAllEvents = EventList.head;
+    		while ( nodeAllEvents != null) {
+    			if ( nodeContactEvents.data.title.equals(nodeAllEvents.data.title) && nodeContactEvents.data.time.equals(nodeAllEvents.data.time) && nodeContactEvents.data.date.equals(nodeAllEvents.data.date) && nodeContactEvents.data.location.equals(nodeAllEvents.data.location) ) {
+    				if (nodeAllEvents == EventList.head) {
+    					EventList.head = EventList.head.next;
+    					break;
+    				}
+    				else {
+    					Node<Event> tmp = EventList.head;
+    					System.out.println("else case");
+    					while (tmp.next != nodeAllEvents)
+    						tmp = tmp.next;
+    					tmp.next = nodeAllEvents.next;
+    				}
+    				if (nodeAllEvents != null) {
+        				if (nodeAllEvents.next == null)
+        					nodeAllEvents = EventList.head;
+        				else
+        					nodeAllEvents = nodeAllEvents.next;
+    				}
+    				else
+    					break;
+    			}
+    			nodeAllEvents = nodeAllEvents.next;
+    			}
+    		nodeContactEvents = nodeContactEvents.next;
+		}
+	}
+	
+    public void printEventsAlphabetically() {  // tested
         Node current = EventList.head; 
         while (current != null) { 
             System.out.println(current.data.toString()); 
