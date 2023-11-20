@@ -6,6 +6,9 @@ public class Contact implements Comparable<Contact> {
 
     EventLinkedList scheduledEvents = new EventLinkedList();
 
+        public Contact() {
+    }
+
     public Contact(String name, String phone_Number, String email_Address, String birthday, String address, String note) {
         setName(name);
         setPhone_Number(phone_Number);
