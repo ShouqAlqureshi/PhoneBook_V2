@@ -161,57 +161,46 @@ public class ContactBST {
 
     }
 
-	public void deleteContact (Contact toBeDeleted) { //tested
-    	if (empty())
-    		System.out.println("there is no contact to delete!");
-    	else
-    		if(remove_key(toBeDeleted.getName()))	 //method delete is not yet implemented
-    			System.out.println("the contact is deleted successfully !");
-    	System.out.println("the contact is not found !");
+    // Method to delete a node with the given key from the BST
+    public void deleteContact(String key) { //tested
+        root = deleteRec(root, key);
     }
 
-    public boolean remove_key (String theKey){
-    	boolean removed =false;
-    	BSTNode p;
-    	p = remove_aux(theKey, root, removed);
-    	current = root = p;
-    	return removed;
+    private BSTNode deleteRec(BSTNode root, String key) {
+        if (root == null) {
+            return root;
+        }
+
+        // Search for the node to be deleted
+        if (key.compareTo(root.key) < 0) {
+            root.left = deleteRec(root.left, key);
+        } else if (key.compareTo(root.key) > 0) {
+            root.right = deleteRec(root.right, key);
+        } else {
+            // Node with only one child or no child
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            }
+
+            // Node with two children
+            root.key = minValue(root.right);
+
+            // Delete the in-order successor
+            root.right = deleteRec(root.right, root.key);
+        }
+
+        return root;
     }
 
-    private BSTNode remove_aux(String theKey, BSTNode p, boolean flag) {
-    		BSTNode q, child = null;
-    		if(p == null)
-    			return null;
-    		if( theKey.compareTo(p.key) == -1)
-    			p.left = remove_aux(theKey, p.left, flag); //go left
-    		else if(theKey.compareTo(p.key) ==1)
-    			p.right = remove_aux(theKey, p.right, flag); //go right
-    		else { // key is found
-    			flag= true;
-    			if (p.left != null && p.right != null){ //two children
-    				q = find_min(p.right);
-    				p.key = q.key;
-    				p.data = q.data;
-    				p.right = remove_aux(q.key, p.right, flag);
-    				}
-    			else {
-    				if (p.right == null) //one child
-    					child = p.left;
-    				else if (p.left == null) //one child
-    					child = p.right;
-    				return child;
-    			}
-    		}
-    		return p;
-    }
-
-    private BSTNode find_min(BSTNode p){
-    	if(p == null)
-    		return null;
-    	while(p.left != null){
-    		p = p.left;
-    	}
-    	return p;
+    private String minValue(BSTNode root) {
+        String minValue = root.key;
+        while (root.left != null) {
+            minValue = root.left.key;
+            root = root.left;
+        }
+        return minValue;
     }
 
     public static void main(String[] args) {
