@@ -62,7 +62,7 @@ public class Event  {
     }
     @Override
     public String toString() {
-        return Type+"{" + "title=" + title +", contact name="+contact.getPhone_Number()+ ", date=" + date + ", time=" + time + ", location=" + location + '}';
+        return Type+"{" + "title=" + title +", contact name="+contact.getName()+ ", date=" + date + ", time=" + time + ", location=" + location + '}';
     }
 
     public int comparing(Event event) {
