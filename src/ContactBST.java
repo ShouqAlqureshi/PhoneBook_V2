@@ -24,7 +24,7 @@ public class ContactBST {
         BSTNode q = current;
         if (!findKey(name)) {
             System.out.println("The contact is not found");
-            current=q; //since findKey changes the current
+            current = q; //since findKey changes the current
             return null;
         }
         else {
@@ -34,7 +34,7 @@ public class ContactBST {
     }
 
 	public void searchByPhoneNumber(String phoneNumber , BSTNode node) { //tested
-		if (node==null)
+		if (node == null)
 			return;
 		searchByPhoneNumber(phoneNumber , node.left);
 		if (((Contact)node.data).getPhone_Number().equals(phoneNumber)) {
@@ -43,6 +43,66 @@ public class ContactBST {
 		}
 		searchByPhoneNumber(phoneNumber , node.right);
 	}
+
+    public void searchByEmailAddress(String emailAddress , BSTNode node) {
+
+        if (node == null)
+
+            return;
+
+        searchByEmailAddress (emailAddress , node.left);
+
+        if (((Contact)node.data).getEmail_Address().equals(emailAddress)) {
+
+            System.out.println("contact found!");
+
+            System.out.println(((Contact)node.data).toString());
+
+        }
+
+        searchByEmailAddress (emailAddress , node.right);
+
+    }
+
+    public void searchByAddress(String address , BSTNode node) {
+
+        if (node == null)
+
+            return;
+
+        searchByAddress (address , node.left);
+
+        if (((Contact)node.data).getAddress().equals(address)) {
+
+            System.out.println("contact found!");
+
+            System.out.println(((Contact)node.data).toString());
+
+        }
+
+        searchByAddress (address , node.right);
+
+    }
+
+    public void searchByBirthday(String birthday , BSTNode node) {
+
+        if (node == null)
+
+            return;
+
+        searchByBirthday (birthday , node.left);
+
+        if (((Contact)node.data). getBirthday().equals(birthday)) {
+
+            System.out.println("contact found!");
+
+            System.out.println(((Contact)node.data).toString());
+
+        }
+
+        searchByBirthday (birthday , node.right);
+
+    }
 
     public boolean empty() {
             return root == null;
@@ -123,27 +183,6 @@ public class ContactBST {
             return true;
 
         return false;
-    }
-
-    public int comparing(String contact1 ,String contact2) {//String vs string
-        if (contact1.toUpperCase().charAt(0) > contact2.toUpperCase().charAt(0))
-            return 1;
-        else if (contact1.toUpperCase().charAt(0) == contact2.toUpperCase().charAt(0)){
-            int limit;
-            if(!contact1.equalsIgnoreCase(contact2)) {
-                limit = Math.min(contact1.length(), contact2.length());
-                for (int i = 1; i < limit; i++) {
-                    if (contact1.toUpperCase().charAt(i) > contact2.toUpperCase().charAt(i)) {
-                        return 1;
-                    } else if (contact1.toUpperCase().charAt(i) < contact2.toUpperCase().charAt(i)) {
-                        return -1;
-                    }
-                }
-                if ( contact1.length() != contact2.length())
-                    return 2;
-            } return 0;
-        }else
-            return-1;
     }
 
     public  static void printContact(BSTNode pointer){//printing inorder for testing purposes
