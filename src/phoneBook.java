@@ -23,21 +23,20 @@ public class phoneBook {
 
 	public void printEventByContactName(String contactName) {
 		Contact contactToFind = ContactTree.findByName(contactName).data;
-//		Node<Event> temp = contactToFind.scheduledEvents.head;
-//		while (temp != null) {
-//			System.out.println(temp.data.toString());
-//			temp=temp.next;
+		Node<Event> temp = contactToFind.scheduledEvents.head;
+		while (temp != null) {
+			System.out.println(temp.data.toString());
+			temp = temp.next;
 		}
+	}
 
 	public void printEventSharingE_title(String EventTitle) {
-/*		Node<Event> tmpEvents = this.EventList.head;
+		Node<Event> tmpEvents = this.EventList.head;
 		while(tmpEvents != null) {
 			if (tmpEvents.data.title.equalsIgnoreCase(EventTitle))
 				System.out.println(tmpEvents.data.toString());
 			tmpEvents=tmpEvents.next;
 		}
-
-	*/
 	}
 	
     public void printEventsAlphabetically() {  // not tested yet
@@ -92,15 +91,15 @@ public class phoneBook {
 							break;
 						case 3:
 							System.out.println("Enter the contact's Email Address:");
-//							this.ContactTree.SearchByEmailAddress(input.nextLine());
+							this.ContactTree.searchByEmailAddress(input.nextLine(), ContactTree.root);
 							break;
 						case 4:
 							System.out.println("Enter the contact's Address:");
-//							this.ContactTree.SearchByAddress(input.nextLine());
+							this.ContactTree.searchByAddress(input.nextLine(), ContactTree.root);
 							break;
 						case 5:
 							System.out.println("Enter the contact's Birthday:");
-//							this.ContactTree.SearchByBirthday(input.nextLine());
+							this.ContactTree.searchByBirthday(input.nextLine(), ContactTree.root);
 							break;
 					}
 					break;
@@ -108,11 +107,11 @@ public class phoneBook {
 					System.out.println("Enter the contact's name:");
 					Contact contactToDelete = this.ContactTree.findByName( input.nextLine() ).data;// hint: findKey then delete
 //					this.deleteEvents(contactToDelete.scheduledEvents);
-//					this.ContactTree.Delete(contactToDelete);
+					this.ContactTree.deleteContact(contactToDelete);
 					System.out.println("Contact has been deleted successfully :)");
 					break;
 				case 4:
-//					this.scheduleEvent();
+					this.scheduleEORApp();
 					break;
 				case 5:
 					System.out.println("Enter search criteria:\n 1.contact name\n 2.Event title");
@@ -122,13 +121,13 @@ public class phoneBook {
 						case 1:
 							System.out.println("Enter the contact name:");
 							String contactName = input.nextLine();
-//							printEventByContactName(contactName);
+							printEventByContactName(contactName);
 							System.out.println("Event found!");
 							break;
 						case 2:
 							System.out.println("Enter the event title:");
 							String title = input.nextLine();
-//							printEventSharingE_title(title);
+							printEventSharingE_title(title);
 							System.out.println("Event found!");
 							break;
 					}
@@ -140,7 +139,7 @@ public class phoneBook {
 					System.out.println("Contacts found!");
 					break;
 				case 7:
-//					printE_alphabetically(EventLinkedList.head);
+					printEventsAlphabetically();
 					break;
 			}
 		}while (action != 8);
