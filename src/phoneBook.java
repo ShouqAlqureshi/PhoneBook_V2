@@ -17,9 +17,8 @@ public class phoneBook {
         System.out.print("Enter contact name: ");
         String CName = input.nextLine();
 
-        if (ContactTree.findKey(CName))
-        {
-        	c= ContactTree.current.data;
+        if (ContactTree.findKey(CName)){
+        	c = ContactTree.current.data;
             System.out.print("Enter event date and time MM/DD/YYYY HH:MM");
             String eventTandD= input.nextLine();
             String[] timeAndDate = eventTandD.split(" ");
@@ -44,30 +43,28 @@ public class phoneBook {
                 		e.Type = "Appoinment";
                 }
 
-                Event EventToBeSchedule = new Event( Etitle ,eventDate ,eventTime , Elocation , c ) ;
+                Event EventToBeSchedule = new Event( Etitle ,eventDate ,eventTime , Elocation , c ,e.Type) ;
                 EventList.insertToSortedList (EventToBeSchedule );
                 c.scheduledEvents.insertToSortedList(EventToBeSchedule);
+				System.out.println("Event scheduled successfully!");
                 return true;
             }
-            }
+		}
+		System.out.println("Failed to schedule Event");
 		return false;
-           
-
-        }
-
-            public boolean conflict (Contact c , String eventTime , String eventDate){
-
-            Node<Event> tmp = EventList.head;
-            while (tmp != null) {
-                if (tmp.data.getDate().equals(eventDate) && tmp.data.getTime().equals(eventTime))
-                    return true;
-                tmp=tmp.next;
-            }
-            return false;
-        }
+	}
+	public boolean conflict (Contact c , String eventTime , String eventDate){
+     Node<Event> tmp = EventList.head;
+     while (tmp != null) {
+        if (tmp.data.getDate().equals(eventDate) && tmp.data.getTime().equals(eventTime))
+            return true;
+        tmp=tmp.next;
+	 }
+    return false;
+ 	}
 	
 	public void printContact_firstName(String fName , BSTNode node) { //tested
-		if (node==null)
+		if (node == null)
 			return;
 		printContact_firstName(fName , node.left);
 		
@@ -93,7 +90,7 @@ public class phoneBook {
 		while(tmpEvents != null) {
 			if (tmpEvents.data.title.equalsIgnoreCase(EventTitle))
 				System.out.println(tmpEvents.data.toString());
-			tmpEvents=tmpEvents.next;
+			tmpEvents = tmpEvents.next;
 		}
 	}
 	
@@ -124,9 +121,9 @@ public class phoneBook {
     				}
     				else
     					break;
-    			}
+				}
     			nodeAllEvents = nodeAllEvents.next;
-    			}
+			}
     		nodeContactEvents = nodeContactEvents.next;
 		}
 	}
@@ -197,9 +194,10 @@ public class phoneBook {
 					break;
 				case 3:
 					System.out.println("Enter the contact's name:");
-					Contact contactToDelete = this.ContactTree.findByName( input.nextLine() ).data;// hint: findKey then delete
-//					this.deleteEvents(contactToDelete.scheduledEvents);
-					this.ContactTree.deleteContact(contactToDelete);
+					String contactNameToDelete = input.nextLine();
+					BSTNode contactToDelete = this.ContactTree.findByName( contactNameToDelete );
+					this.deleteEvents(contactToDelete.data.scheduledEvents);
+					this.ContactTree.deleteContact(contactToDelete.key);
 					System.out.println("Contact has been deleted successfully :)");
 					break;
 				case 4:
@@ -227,7 +225,7 @@ public class phoneBook {
 				case 6:
 					System.out.println("Enter the firstname:");
 					String firstname = input.nextLine();
-//					ContactTree.PrintContactByFirstName(firstname);
+					printContact_firstName(firstname, ContactTree.root);
 					System.out.println("Contacts found!");
 					break;
 				case 7:
@@ -238,4 +236,13 @@ public class phoneBook {
 		System.exit(0);
 	}
 
+	public static void main(String[] args) {
+		phoneBook test= new phoneBook();
+		Scanner input = new Scanner(System.in) ;
+		Contact c1 = new Contact("Ahmad Al-Saud","1234","gmail","3/3/2003","la","kk");
+		Contact c2 = new Contact("Ahmad Alzaid","1212","hotmail","4/4/233","ca","lv");
+		test.ContactTree.add(c1);
+		test.ContactTree.add(c2);
+		test.API();
+	}
 }
