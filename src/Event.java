@@ -17,12 +17,13 @@ public class Event  {
         this.location = "";
     }
 
-    public Event(String title, String date, String time, String location, Contact contact) {
+    public Event(String title, String date, String time, String location, Contact contact, String type) {
         this.title = title;
         this.date = date;
         this.time = time;
         this.location = location;
         this.contact = contact ;
+        this.Type = type;
     }
 
     public void setTitle(String title) {
