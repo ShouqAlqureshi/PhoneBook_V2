@@ -33,15 +33,20 @@ public class ContactBST {
 
     }
 
-	public void searchByPhoneNumber(String phoneNumber , BSTNode node) { //tested
-		if (node == null)
-			return;
-		searchByPhoneNumber(phoneNumber , node.left);
+    public Contact searchByPhoneNumber(String phoneNum ,BSTNode node ){
+    	Contact toBeFind = searchPhoneNumber(phoneNum , node);
+    	return toBeFind;
+    }
+    
+    public Contact searchPhoneNumber(String phoneNumber , BSTNode node) { //tested
+		if (node==null)
+			return null;
+		searchPhoneNumber(phoneNumber , node.left);
 		if (((Contact)node.data).getPhone_Number().equals(phoneNumber)) {
-			System.out.println("contact found!");
-			System.out.println(((Contact)node.data).toString());
+			return (Contact)node.data;
 		}
-		searchByPhoneNumber(phoneNumber , node.right);
+		searchPhoneNumber(phoneNumber , node.right);
+		return null;
 	}
 
     public void searchByEmailAddress(String emailAddress , BSTNode node) {
