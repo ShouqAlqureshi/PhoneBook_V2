@@ -176,8 +176,13 @@ public class phoneBook {
 							break;
 						case 2:
 							System.out.println("Enter the contact's Phone Number:");
-							this.ContactTree.searchByPhoneNumber(input.nextLine(), ContactTree.root);
-							break;
+					    	Contact finding = this.ContactTree.searchByPhoneNumber(input.nextLine(), ContactTree.root);
+					    	if ( finding == null)
+					    		System.out.println("the contact is not found!");
+					    	else {
+					    		System.out.println("Contact found!");
+					    		System.out.println(finding.toString());
+					    	}
 						case 3:
 							System.out.println("Enter the contact's Email Address:");
 							this.ContactTree.searchByEmailAddress(input.nextLine(), ContactTree.root);
