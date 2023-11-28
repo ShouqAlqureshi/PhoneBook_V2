@@ -176,19 +176,43 @@ public class phoneBook {
 							break;
 						case 2:
 							System.out.println("Enter the contact's Phone Number:");
-							this.ContactTree.searchByPhoneNumber(input.nextLine(), ContactTree.root);
+							ContactBST foundContacts = this.ContactTree.searchByPhoneNumber(input.nextLine(), ContactTree.root);
+							if (foundContacts.empty())
+								System.out.println("the contact is not found!");
+							else {
+								System.out.println("contact found!");
+								foundContacts.printContact(foundContacts.root);
+							}
 							break;
 						case 3:
 							System.out.println("Enter the contact's Email Address:");
-							this.ContactTree.searchByEmailAddress(input.nextLine(), ContactTree.root);
+							foundContacts= this.ContactTree.searchByEmailAddress(input.nextLine() , ContactTree.root);
+							if (foundContacts.empty())
+								System.out.println("the contact is not found!");
+							else {
+								System.out.println("contact found!");
+								foundContacts.printContact(foundContacts.root);
+							}
 							break;
 						case 4:
 							System.out.println("Enter the contact's Address:");
-							this.ContactTree.searchByAddress(input.nextLine(), ContactTree.root);
+							foundContacts= this.ContactTree.searchByAddress(input.nextLine() , ContactTree.root);
+							if (foundContacts.empty())
+								System.out.println("the contact is not found!");
+							else {
+								System.out.println("contact found!");
+								foundContacts.printContact(foundContacts.root);
+							}
 							break;
 						case 5:
 							System.out.println("Enter the contact's Birthday:");
-							this.ContactTree.searchByBirthday(input.nextLine(), ContactTree.root);
+							foundContacts= this.ContactTree.searchByBirthday(input.nextLine() , ContactTree.root);
+							if (foundContacts.empty())
+								System.out.println("the contact is not found!");
+							else {
+								System.out.println("contact found!");
+								foundContacts.printContact(foundContacts.root);
+							}
 							break;
 					}
 					break;
