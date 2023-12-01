@@ -44,64 +44,66 @@ public class ContactBST {
 		searchByPhoneNumber(phoneNumber , node.right);
 	}
 
-    public void searchByEmailAddress(String emailAddress , BSTNode node) {
-
-        if (node == null)
-
-            return;
-
-        searchByEmailAddress (emailAddress , node.left);
-
-        if (((Contact)node.data).getEmail_Address().equals(emailAddress)) {
-
-            System.out.println("contact found!");
-
-            System.out.println(((Contact)node.data).toString());
-
-        }
-
-        searchByEmailAddress (emailAddress , node.right);
-
+    public ContactBST searchByEmailAddress(String emailAddress , BSTNode node) {
+    	ContactBST foundContacts= new ContactBST();
+    	foundContacts = searchEmailAddress(emailAddress, node, foundContacts);
+    	return foundContacts;
     }
 
-    public void searchByAddress(String address , BSTNode node) {
+    public ContactBST searchEmailAddress(String emailAddress , BSTNode node , ContactBST foundContacts) {
 
         if (node == null)
+            return foundContacts;
+        searchEmailAddress (emailAddress , node.left , foundContacts);
+        if (((Contact)node.data).getEmail_Address().equals(emailAddress)) {
+        	foundContacts.add2(((Contact)node.data));
+        }
+        searchEmailAddress (emailAddress , node.right , foundContacts);
+        return foundContacts;
+    }
+    
+    
+    public ContactBST searchByAddress(String Address , BSTNode node) {
+    	ContactBST foundContacts= new ContactBST();
+    	foundContacts = searchAddress(Address, node, foundContacts);
+    	return foundContacts;
+    }
 
-            return;
+    public ContactBST searchAddress(String address , BSTNode node , ContactBST foundContacts) {
 
-        searchByAddress (address , node.left);
+        if (node == null)
+            return foundContacts;
+
+        searchAddress (address , node.left , foundContacts);
 
         if (((Contact)node.data).getAddress().equals(address)) {
-
-            System.out.println("contact found!");
-
-            System.out.println(((Contact)node.data).toString());
-
+        	foundContacts.add2(((Contact)node.data));
         }
 
-        searchByAddress (address , node.right);
-
+        searchAddress (address , node.right , foundContacts);
+        return foundContacts;
+    }
+    
+    
+    public ContactBST searchByBirthday(String emailAddress , BSTNode node) {
+    	ContactBST foundContacts= new ContactBST();
+    	foundContacts = searchBirthday(emailAddress, node, foundContacts);
+    	return foundContacts;
     }
 
-    public void searchByBirthday(String birthday , BSTNode node) {
+    public ContactBST searchBirthday(String birthday , BSTNode node , ContactBST foundContacts) {
 
         if (node == null)
+            return foundContacts;
 
-            return;
-
-        searchByBirthday (birthday , node.left);
+        searchBirthday (birthday , node.left, foundContacts);
 
         if (((Contact)node.data). getBirthday().equals(birthday)) {
-
-            System.out.println("contact found!");
-
-            System.out.println(((Contact)node.data).toString());
-
+        	foundContacts.add2(((Contact)node.data));
         }
 
-        searchByBirthday (birthday , node.right);
-
+        searchBirthday (birthday , node.right, foundContacts);
+        return foundContacts;
     }
 
     public boolean empty() {
@@ -240,6 +242,25 @@ public class ContactBST {
             root = root.left;
         }
         return minValue;
+    }
+    
+    public void add2(Contact contactToAdd ){//tested
+        BSTNode hold = current;
+        BSTNode nodeToAdd = new BSTNode (contactToAdd.getName(),contactToAdd );
+        if (empty()) {
+            root = current = nodeToAdd;
+            return;
+        }
+        if (isUniqueContact(contactToAdd)){
+            if (contactToAdd.getName().compareTo(current.key) < 0)
+                current.left = nodeToAdd;
+            else
+                current.right = nodeToAdd;
+            current = nodeToAdd;
+            return;
+        }
+        current = hold;
+        System.out.println(contactToAdd.toString() + "\n is already added to the phonebook :) ");
     }
 
     public static void main(String[] args) {
