@@ -57,6 +57,8 @@ public class ContactBST {
     	return foundContacts;
     }
 
+
+
     public ContactBST searchEmailAddress(String emailAddress , BSTNode node , ContactBST foundContacts) {
 
         if (node == null)
@@ -111,9 +113,6 @@ public class ContactBST {
 
         searchBirthday (birthday , node.right, foundContacts);
         return foundContacts;
-    }
-
-        searchByBirthday (birthday , node.right);
 
     }
 
