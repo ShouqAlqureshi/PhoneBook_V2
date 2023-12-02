@@ -33,14 +33,13 @@ public class ContactBST {
 
     }
 
-
     public ContactBST searchByPhoneNumber(String phoneNum ,BSTNode node ){
     	ContactBST foundContacts= new ContactBST();
     	foundContacts = searchPhoneNumber(phoneNum , node , foundContacts);
     	return foundContacts;
     }
     
-    public ContactBST searchPhoneNumber(String phoneNumber , BSTNode node, ContactBST foundContacts) { //tested
+    public ContactBST searchPhoneNumber(String phoneNumber , BSTNode node, ContactBST foundContacts) {
 		if (node==null) {
 			return foundContacts;
 		}
@@ -59,8 +58,6 @@ public class ContactBST {
     	return foundContacts;
     }
 
-
-
     public ContactBST searchEmailAddress(String emailAddress , BSTNode node , ContactBST foundContacts) {
 
         if (node == null)
@@ -72,8 +69,7 @@ public class ContactBST {
         searchEmailAddress (emailAddress , node.right , foundContacts);
         return foundContacts;
     }
-    
-    
+
     public ContactBST searchByAddress(String Address , BSTNode node) {
     	ContactBST foundContacts= new ContactBST();
     	foundContacts = searchAddress(Address, node, foundContacts);
@@ -94,7 +90,6 @@ public class ContactBST {
         searchAddress (address , node.right , foundContacts);
         return foundContacts;
     }
-    
     
     public ContactBST searchByBirthday(String emailAddress , BSTNode node) {
     	ContactBST foundContacts= new ContactBST();
@@ -134,11 +129,11 @@ public class ContactBST {
 
             while(p != null) {
                     q = p;
-                    if(p.key.compareTo(keyToFind) == 0) {//comparing (p.key,keyToFind);
+                    if(p.key.compareTo(keyToFind) == 0) {
                             current = p;
                             return true;
                     }
-                    else if(keyToFind.compareTo(p.key) < 0)//comparing (keyToFind,p.key);
+                    else if(keyToFind.compareTo(p.key) < 0)
                             p = p.left;
                     else
                             p = p.right;
@@ -195,7 +190,7 @@ public class ContactBST {
         return false;
     }
 
-    public Contact[] returnContacts(BSTNode pointer, Contact[] arr, int i){//printing inorder for testing purposes
+    public Contact[] returnContacts(BSTNode pointer, Contact[] arr, int i){
         if (pointer == null)
             return null;
 
@@ -209,6 +204,21 @@ public class ContactBST {
         returnContacts(pointer.right,arr,i);
 
         return arr;
+    }
+
+    public void  printContact(BSTNode pointer){//printing inorder
+        if (pointer == null)
+            return;
+
+        // First recur on left subtree
+        printContact(pointer.left);
+
+        // Now deal with the node
+        System.out.println(pointer.data.toString());
+
+        // Then recur on right subtree
+        printContact(pointer.right);
+
     }
 
     // Method to delete a node with the given key from the BST

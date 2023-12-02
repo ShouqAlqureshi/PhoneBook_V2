@@ -19,7 +19,7 @@ public class phoneBook {
 		BSTNode hold = ContactTree.current;
 
 		if (ContactTree.findKey(contactName )){
-			EC.add(ContactTree.current.data);
+			EC.add2(ContactTree.current.data);
 			System.out.print("Enter event date and time MM/DD/YYYY HH:MM");
 			String eventTime_Date= input.nextLine();
 			String[] timeAndDate = eventTime_Date.split(" ");
@@ -58,7 +58,7 @@ public class phoneBook {
 						System.out.println("Date and time are not available for this contact");
 						continue;
 					}
-					EC.add(ContactTree.findByName(contactName).data);
+					EC.add2(ContactTree.findByName(contactName).data);
 					i++;
 					}
 				}
