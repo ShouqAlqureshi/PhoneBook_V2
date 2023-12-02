@@ -33,22 +33,31 @@ public class ContactBST {
 
     }
 
-	public void searchByPhoneNumber(String phoneNumber , BSTNode node) { //tested
-		if (node == null)
-			return;
-		searchByPhoneNumber(phoneNumber , node.left);
-		if (((Contact)node.data).getPhone_Number().equals(phoneNumber)) {
-			System.out.println("contact found!");
-			System.out.println(((Contact)node.data).toString());
+    public ContactBST searchByPhoneNumber(String phoneNum ,BSTNode node ){
+    	ContactBST foundContacts= new ContactBST();
+    	foundContacts = searchPhoneNumber(phoneNum , node , foundContacts);
+    	return foundContacts;
+    }
+    
+    public ContactBST searchPhoneNumber(String phoneNumber , BSTNode node, ContactBST foundContacts) { //tested
+		if (node==null) {
+			return foundContacts;
 		}
-		searchByPhoneNumber(phoneNumber , node.right);
+		searchPhoneNumber(phoneNumber , node.left , foundContacts);
+		if (((Contact)node.data).getPhone_Number().equals(phoneNumber)) {
+			foundContacts.add2((Contact)node.data);
+		}
+		searchPhoneNumber(phoneNumber , node.right , foundContacts);
+		return foundContacts;
 	}
-
+    
     public ContactBST searchByEmailAddress(String emailAddress , BSTNode node) {
     	ContactBST foundContacts= new ContactBST();
     	foundContacts = searchEmailAddress(emailAddress, node, foundContacts);
     	return foundContacts;
     }
+
+
 
     public ContactBST searchEmailAddress(String emailAddress , BSTNode node , ContactBST foundContacts) {
 
@@ -104,6 +113,7 @@ public class ContactBST {
 
         searchBirthday (birthday , node.right, foundContacts);
         return foundContacts;
+
     }
 
     public boolean empty() {
