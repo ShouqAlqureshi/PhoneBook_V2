@@ -8,7 +8,8 @@ public class Event  {
 
     String location;
 
-    Contact contact ;
+    ContactBST contact ;
+    int contactNum;
 
     public Event() {
         this.title = "";
@@ -17,13 +18,14 @@ public class Event  {
         this.location = "";
     }
 
-    public Event(String title, String date, String time, String location, Contact contact, String type) {
+    public Event(String title, String date, String time, String location, ContactBST contact, String type,int contactNum) {
         this.title = title;
         this.date = date;
         this.time = time;
         this.location = location;
         this.contact = contact ;
         this.Type = type;
+        this.contactNum = contactNum;
     }
 
     public void setTitle(String title) {
@@ -63,7 +65,11 @@ public class Event  {
     }
     @Override
     public String toString() {
-        return Type+"{" + "title=" + title +", contact name="+contact.getName()+ ", date=" + date + ", time=" + time + ", location=" + location + '}';
+        String eventDescription = Type+"{" + "title=" + title +", date=" + date + ", time=" + time + ", location=" + location + ", contact/s name/s:";
+        for (Contact i: contact.returnContacts(contact.root,new Contact[contactNum],0)) {
+            eventDescription = eventDescription.concat(i.getName());
+        }
+       return eventDescription + "}";
     }
 
     public int comparing(Event event) {
