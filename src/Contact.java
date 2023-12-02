@@ -1,6 +1,6 @@
 public class Contact implements Comparable<Contact> {
 
-    private String Type,Name, Phone_Number, Email_Address, Birthday, Address;
+    private String Name, Phone_Number, Email_Address, Birthday, Address;
 
     String note;
 

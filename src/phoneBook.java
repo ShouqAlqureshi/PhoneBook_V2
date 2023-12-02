@@ -3,67 +3,93 @@ public class phoneBook {
 	
 	ContactBST ContactTree= new ContactBST();
 	EventLinkedList EventList = new EventLinkedList();
-	
+
 	public boolean scheduleEORApp() {
-        Scanner input = new Scanner(System.in) ;
+		Scanner input = new Scanner(System.in) ;
+		String eventDate, eventTime;
+		ContactBST EC = new ContactBST();
+		Event event = new Event();
 
-        String eventDate, eventTime;
-        Contact c = new Contact();
-        Event e = new Event();
+		System.out.print("Enter event title: ");
+		String eventTitle  = input.nextLine();
 
-        System.out.print("Enter event title: ");
-        String Etitle = input.nextLine();
+		System.out.print("Enter contact name: ");
+		String contactName  = input.nextLine();
 
-        System.out.print("Enter contact name: ");
-        String CName = input.nextLine();
+		BSTNode hold = ContactTree.current;
 
-        if (ContactTree.findKey(CName)){
-        	c = ContactTree.current.data;
-            System.out.print("Enter event date and time MM/DD/YYYY HH:MM");
-            String eventTandD= input.nextLine();
-            String[] timeAndDate = eventTandD.split(" ");
-            eventDate= timeAndDate[0];
-            eventTime= timeAndDate[1];
+		if (ContactTree.findKey(contactName )){
+			EC.add(ContactTree.current.data);
+			System.out.print("Enter event date and time MM/DD/YYYY HH:MM");
+			String eventTime_Date= input.nextLine();
+			String[] timeAndDate = eventTime_Date.split(" ");
+			eventDate = timeAndDate[0];
+			eventTime = timeAndDate[1];
 
-            if( conflict (c,eventTime,eventDate)){
-                System.out.println("Date and time are not available");
-                return false;
-            }
-            
-            else {
-                System.out.print("Enter event location: ");
-                String Elocation = input.nextLine();
+			if( conflict (EC.root.data,eventTime,eventDate)){
+				System.out.println("Date and time are not available");
+				return false;
+			} else {
+				System.out.print("Enter event location: ");
+				String eventLocation = input.nextLine();
 
-                System.out.print("Enter event Type: (E for Event, A for Appoinment) ");
-                char t = input.next().charAt(0);
-                if (t == 'E' || t =='e')
-                    e.Type = "Event";
-                else {
-                	if (t == 'A' || t =='a')
-                		e.Type = "Appoinment";
-                }
+				System.out.print("Enter event Type: (E for Event, A for Appointment) ");
+				char type = input.next().charAt(0);
 
-                Event EventToBeSchedule = new Event( Etitle ,eventDate ,eventTime , Elocation , c ,e.Type) ;
-                EventList.insertToSortedList (EventToBeSchedule );
-                c.scheduledEvents.insertToSortedList(EventToBeSchedule);
+				if (type == 'E' || type =='e')
+					event.Type = "Event";
+				else {
+					if (type == 'A' || type =='a')
+						event.Type = "Appointment";
+				}
+
+				int i = 1;
+				String answer = "y";
+				while(answer.equalsIgnoreCase("y") ){
+					System.out.print("would you like to add anthor contact to this Event/Appointment? 1-Yes/2-No");
+					input.nextLine();
+					answer = input.nextLine();
+					if ( answer.equalsIgnoreCase("n"))
+						break;
+					if (answer.equalsIgnoreCase("y")){
+					System.out.print("Enter contact name: ");
+					contactName  = input.nextLine();
+					if( conflict (ContactTree.findByName(contactName).data, eventTime, eventDate) ){
+						System.out.println("Date and time are not available for this contact");
+						continue;
+					}
+					EC.add(ContactTree.findByName(contactName).data);
+					i++;
+					}
+				}
+
+				Event EventToBeSchedule = new Event( eventTitle  ,eventDate ,eventTime , eventLocation , EC ,event.Type, i) ;
+				EventList.insertToSortedList (EventToBeSchedule );
+
+				for (Contact contact :EC.returnContacts(EC.root,new Contact[i],0)) {
+					contact.scheduledEvents.insertToSortedList(EventToBeSchedule);
+				}
+
 				System.out.println("Event scheduled successfully!");
-                return true;
-            }
+				return true;
+			}
 		}
+		ContactTree.current = hold;
 		System.out.println("Failed to schedule Event");
 		return false;
 	}
-	public boolean conflict (Contact c , String eventTime , String eventDate){
-     Node<Event> tmp = EventList.head;
-     while (tmp != null) {
-        if (tmp.data.getDate().equals(eventDate) && tmp.data.getTime().equals(eventTime))
-            return true;
-        tmp=tmp.next;
-	 }
-    return false;
- 	}
+
+	public boolean conflict (Contact contact , String eventTime , String eventDate){
+		Node<Event> tmp = contact.scheduledEvents.head;//change
+		while (tmp != null) {
+			if (tmp.data.getDate().equals(eventDate) && tmp.data.getTime().equals(eventTime))
+				return true;
+			tmp = tmp.next;
+		}
+		return false;
+	}
 	
-	public void printContact_firstName(String fName , BSTNode node) { //tested
+	public void printContact_firstName(String fName , BSTNode node) {
 		if (node == null)
 			return;
 		printContact_firstName(fName , node.left);
@@ -78,6 +104,10 @@ public class phoneBook {
 
 	public void printEventByContactName(String contactName) {
 		Contact contactToFind = ContactTree.findByName(contactName).data;
+		if (contactToFind == null){
+			System.out.println("this contact name doesn't exist in your contacts ");
+			return;
+		}
 		Node<Event> temp = contactToFind.scheduledEvents.head;
 		while (temp != null) {
 			System.out.println(temp.data.toString());
@@ -128,8 +158,8 @@ public class phoneBook {
 		}
 	}
 	
-    public void printEventsAlphabetically() {  // tested
-        Node current = EventList.head; 
+    public void printEventsAlphabetically() {
+        Node<Event> current = EventList.head;
         while (current != null) { 
             System.out.println(current.data.toString()); 
             current = current.next; 
@@ -243,6 +273,7 @@ public class phoneBook {
 		Contact c2 = new Contact("Ahmad Alzaid","1212","hotmail","4/4/233","ca","lv");
 		test.ContactTree.add(c1);
 		test.ContactTree.add(c2);
-		test.API();
+		test.scheduleEORApp();
+
 	}
 }

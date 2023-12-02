@@ -6,7 +6,7 @@ public class ContactBST {
             root = current = null;
     }
 
-    public void searchByName(String name) { //tested
+    public void searchByName(String name) {
 		BSTNode q = current;
 		if (!findKey(name)) {
 			System.out.println("The contact is not found");
@@ -20,7 +20,7 @@ public class ContactBST {
 			
 	}
 
-    public BSTNode findByName(String name) { //not tested yet
+    public BSTNode findByName(String name) {
         BSTNode q = current;
         if (!findKey(name)) {
             System.out.println("The contact is not found");
@@ -33,7 +33,7 @@ public class ContactBST {
 
     }
 
-	public void searchByPhoneNumber(String phoneNumber , BSTNode node) { //tested
+	public void searchByPhoneNumber(String phoneNumber , BSTNode node) {
 		if (node == null)
 			return;
 		searchByPhoneNumber(phoneNumber , node.left);
@@ -108,10 +108,6 @@ public class ContactBST {
             return root == null;
     }
 
-    public boolean full() {
-            return false;
-    }
-
     public Contact retrieve () {
             return current.data;
     }
@@ -136,7 +132,7 @@ public class ContactBST {
             current = q;
             return false;
     }
-    public void add(Contact contactToAdd ){//tested
+    public void add(Contact contactToAdd ){
         BSTNode hold = current;
         BSTNode nodeToAdd = new BSTNode (contactToAdd.getName(),contactToAdd );
         if (empty()) {
@@ -185,23 +181,24 @@ public class ContactBST {
         return false;
     }
 
-    public  static void printContact(BSTNode pointer){//printing inorder for testing purposes
+    public Contact[] returnContacts(BSTNode pointer, Contact[] arr, int i){//printing inorder for testing purposes
         if (pointer == null)
-            return;
+            return null;
 
         // First recur on left subtree
-        printContact(pointer.left);
+        returnContacts(pointer.left,arr,i);
 
         // Now deal with the node
-        System.out.println(pointer.data.toString());
+         arr[i++] = pointer.data;
 
         // Then recur on right subtree
-        printContact(pointer.right);
+        returnContacts(pointer.right,arr,i);
 
+        return arr;
     }
 
     // Method to delete a node with the given key from the BST
-    public void deleteContact(String key) { //tested
+    public void deleteContact(String key) {
         root = deleteRec(root, key);
     }
 
@@ -242,17 +239,4 @@ public class ContactBST {
         return minValue;
     }
 
-    public static void main(String[] args) {
-        ContactBST cb= new ContactBST();
-        Contact c1 = new Contact("Ahmad Al-Saud","jgjgj","jgj","jxjjx","djjd","kdk");
-        Contact c2 = new Contact("Ahmad Alzaid","jgjgb","jgj","jxjjx","djjd","kdk");
-        Contact c3 = new Contact("Ahmad","jgjgd","jgj","jxjjx","djjd","kdk");
-        Contact c4 = new Contact("424","jgjgj","jgj","jxjjx","djjd","kdk");
-        cb.add(c1);
-        cb.add(c2);
-        cb.add(c3);
-        cb.add(c4);
-        System.out.println("left\nparent\nright");
-        printContact(cb.root);
-    }
 }//class
