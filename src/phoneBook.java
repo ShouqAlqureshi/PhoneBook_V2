@@ -7,7 +7,7 @@ public class phoneBook {
 	public boolean scheduleEORApp() {
 		Scanner input = new Scanner(System.in) ;
 		String eventDate, eventTime;
-		ContactBST EC = new ContactBST();
+		ContactBST eventContcts = new ContactBST();
 		Event event = new Event();
 
 		System.out.print("Enter event title: ");
@@ -19,14 +19,14 @@ public class phoneBook {
 		BSTNode hold = ContactTree.current;
 
 		if (ContactTree.findKey(contactName )){
-			EC.add2(ContactTree.current.data);
+			eventContcts.add2(ContactTree.current.data);
 			System.out.print("Enter event date and time MM/DD/YYYY HH:MM");
 			String eventTime_Date= input.nextLine();
 			String[] timeAndDate = eventTime_Date.split(" ");
 			eventDate = timeAndDate[0];
 			eventTime = timeAndDate[1];
 
-			if( conflict (EC.root.data,eventTime,eventDate)){
+			if( conflict (eventContcts.root.data,eventTime,eventDate)){
 				System.out.println("Date and time are not available");
 				return false;
 			} else {
@@ -58,15 +58,15 @@ public class phoneBook {
 						System.out.println("Date and time are not available for this contact");
 						continue;
 					}
-					EC.add2(ContactTree.findByName(contactName).data);
+					eventContcts.add2(ContactTree.findByName(contactName).data);
 					i++;
 					}
 				}
 
-				Event EventToBeSchedule = new Event( eventTitle  ,eventDate ,eventTime , eventLocation , EC ,event.Type, i) ;
+				Event EventToBeSchedule = new Event( eventTitle  ,eventDate ,eventTime , eventLocation , eventContcts ,event.Type, i) ;
 				EventList.insertToSortedList (EventToBeSchedule );
 
-				for (Contact contact :EC.returnContacts(EC.root,new Contact[i],0)) {
+				for (Contact contact :eventContcts.returnContacts(eventContcts.root,new Contact[i],0)) {
 					contact.scheduledEvents.insertToSortedList(EventToBeSchedule);
 				}
 
