@@ -1,15 +1,15 @@
-public class Node <T>{
+public class Node {
 
-    T data;
+     Event data;
 
-    Node<T> next;
+    Node next;
 
-    public Node(T data) {
+    public Node(Event data) {
         this.data = data;
         this.next = null;
     }
 
-    public T retrieve () {
+    public Event retrieve () {
         return data;
     }
 

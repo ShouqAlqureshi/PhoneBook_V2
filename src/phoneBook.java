@@ -80,7 +80,7 @@ public class phoneBook {
 	}
 
 	public boolean conflict (Contact contact , String eventTime , String eventDate){
-		Node<Event> tmp = contact.scheduledEvents.head;//change
+		Node tmp = contact.scheduledEvents.head;//change
 		while (tmp != null) {
 			if (tmp.data.getDate().equals(eventDate) && tmp.data.getTime().equals(eventTime))
 				return true;
@@ -108,7 +108,7 @@ public class phoneBook {
 			System.out.println("this contact name doesn't exist in your contacts ");
 			return;
 		}
-		Node<Event> temp = contactToFind.scheduledEvents.head;
+		Node temp = contactToFind.scheduledEvents.head;
 		while (temp != null) {
 			System.out.println(temp.data.toString());
 			temp = temp.next;
@@ -116,7 +116,7 @@ public class phoneBook {
 	}
 
 	public void printEventSharingE_title(String EventTitle) {
-		Node<Event> tmpEvents = this.EventList.head;
+		Node tmpEvents = this.EventList.head;
 		while(tmpEvents != null) {
 			if (tmpEvents.data.title.equalsIgnoreCase(EventTitle))
 				System.out.println(tmpEvents.data.toString());
@@ -126,8 +126,8 @@ public class phoneBook {
 	
     //delete all events of specific contact from the general events linked list
     public void deleteEvents(EventLinkedList contactEventList) {
-    	Node<Event> nodeContactEvents = contactEventList.head;
-    	Node<Event> nodeAllEvents;
+    	Node nodeContactEvents = contactEventList.head;
+    	Node nodeAllEvents;
     	while (nodeContactEvents != null) {
 			nodeAllEvents = EventList.head;
     		while ( nodeAllEvents != null) {
@@ -137,7 +137,7 @@ public class phoneBook {
     					break;
     				}
     				else {
-    					Node<Event> tmp = EventList.head;
+    					Node tmp = EventList.head;
     					System.out.println("else case");
     					while (tmp.next != nodeAllEvents)
     						tmp = tmp.next;
@@ -159,7 +159,7 @@ public class phoneBook {
 	}
 	
     public void printEventsAlphabetically() {
-        Node<Event> current = EventList.head;
+        Node current = EventList.head;
         while (current != null) { 
             System.out.println(current.data.toString()); 
             current = current.next; 
@@ -169,7 +169,7 @@ public class phoneBook {
 	public void API() {
 		int action;
 		Scanner input = new Scanner(System.in) ;
-		System.out.println("Welcome to theLinkedTreePhonebook!");
+		System.out.println("Welcome to your Phonebook!");
 		do{
 			System.out.println("\n Please choose an option:\n 1.Add a contact\n 2. Search for a contact\n 3.Delete a contact\n 4.Scheduleanevent\n 5.Printeventdetails\n 6.Printcontacts byfirstname\n 7. Print all events alphabetically\n 8.Exit");
 			System.out.println("Enter your choice:");
@@ -292,12 +292,6 @@ public class phoneBook {
 
 	public static void main(String[] args) {
 		phoneBook test= new phoneBook();
-		Scanner input = new Scanner(System.in) ;
-		Contact c1 = new Contact("Ahmad Al-Saud","1234","gmail","3/3/2003","la","kk");
-		Contact c2 = new Contact("Ahmad Alzaid","1212","hotmail","4/4/233","ca","lv");
-		test.ContactTree.add(c1);
-		test.ContactTree.add(c2);
-		test.scheduleEORApp();
-
+		test.API();
 	}
 }

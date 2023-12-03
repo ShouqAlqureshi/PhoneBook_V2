@@ -1,14 +1,14 @@
 public class EventLinkedList {
-    Node<Event> head;
+    Node head;
 
-    Node<Event> current;
+    Node current;
 
     public EventLinkedList() {
         this.head = null;
         this.current = null;
     }
     public void insertToSortedList(Event toBeSorted) {
-        Node<Event> unsortedElement = new Node<Event>(toBeSorted);
+        Node unsortedElement = new Node(toBeSorted);
         if (this.head == null || this.head.data.comparing(unsortedElement.data) == 1 ||  this.head.data.comparing(unsortedElement.data) == 0) {
             unsortedElement.next = this.head;
             this.current = this.head;
